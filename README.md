@@ -11,6 +11,7 @@ Thành viên: xem [`TEAMMATES.md`](TEAMMATES.md).
 ## Cấu trúc
 
 ```
+slides.html             slide trình bày (mở bằng trình duyệt, phím ← →)
 benchmark.ipynb         notebook chạy chính, đã lưu sẵn output (bằng chứng chạy): bảng, plot, ảnh trước/sau
 src/benchmark.py        toàn bộ logic benchmark (tạo lỗi -> đo sức khỏe ảnh -> chạy YOLOv8n -> bảng + plot)
 src/check_s5_port.py    kiểm tra phần tạo lỗi viết lại khớp với code gốc của repo S5

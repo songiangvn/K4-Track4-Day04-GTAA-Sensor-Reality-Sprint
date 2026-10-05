@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camera Health Sprint</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1d1f24; --muted: #5d6270; --line: #dcdad3;
+    --accent: #c2410c; --blur: #2563eb; --noise: #c2410c; --dark: #6d28d9; --ok: #15803d;
+    --code: #efede6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #15171c; --panel: #1e2128; --ink: #eceae4; --muted: #a2a6b2; --line: #343843;
+      --accent: #fb923c; --blur: #60a5fa; --noise: #fb923c; --dark: #a78bfa; --ok: #4ade80; --code: #262a33;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #15171c; --panel: #1e2128; --ink: #eceae4; --muted: #a2a6b2; --line: #343843;
+    --accent: #fb923c; --blur: #60a5fa; --noise: #fb923c; --dark: #a78bfa; --ok: #4ade80; --code: #262a33;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+    font: 18px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .deck { height: 100%; display: grid; place-items: center; padding: 16px; }
+  .slide { display: none; width: min(1200px, 100%); aspect-ratio: 16 / 9; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 14px; padding: 40px 56px 52px; overflow: auto; position: relative; }
+  .slide.active { display: flex; flex-direction: column; }
+  .kicker { color: var(--accent); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 14px; }
+  h1 { font-size: 46px; line-height: 1.1; margin: 8px 0 16px; }
+  h2 { font-size: 32px; margin: 4px 0 18px; }
+  p, li { margin: 6px 0; }
+  ul { padding-left: 22px; margin: 4px 0; }
+  .muted { color: var(--muted); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; flex: 1; min-height: 0; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; }
+  .big { font-size: 34px; font-weight: 800; line-height: 1; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 99px;
+    border: 1px solid currentColor; margin-right: 6px; vertical-align: middle; }
+  .t-do { color: var(--ok); } .t-src { color: var(--blur); } .t-hyp { color: var(--dark); }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: right; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+  .hl { color: var(--accent); font-weight: 700; }
+  img { max-width: 100%; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+  code { background: var(--code); padding: 1px 6px; border-radius: 5px; font-size: .9em; }
+  .foot { position: absolute; bottom: 14px; left: 56px; right: 56px; display: flex; justify-content: space-between;
+    color: var(--muted); font-size: 13px; }
+  .nav { position: fixed; bottom: 14px; right: 18px; display: flex; gap: 8px; }
+  .nav button { background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 8px;
+    padding: 6px 12px; font-size: 16px; cursor: pointer; }
+  svg text { fill: var(--muted); font-size: 13px; }
+  .legend span { margin-right: 16px; font-size: 14px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  @media (max-width: 760px) {
+    .slide { aspect-ratio: auto; min-height: calc(100vh - 32px); padding: 24px 18px 56px; }
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    h1 { font-size: 32px; } h2 { font-size: 24px; } .foot { left: 18px; right: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide active">
+  <div class="kicker">K4 · Track 4 · Day 04 · Sensor Reality Sprint · Nhóm GTAA</div>
+  <h1>Camera vẫn chạy,<br>nhưng có đáng tin không?</h1>
+  <p class="muted" style="font-size:22px;max-width:820px">T1 · Camera degradation health score — đo khi nào ảnh camera xấu đi làm detector hỏng,
+    và chỉ số sức khỏe ảnh nào nhận ra được điều đó.</p>
+  <div class="grid3" style="margin-top:auto">
+    <div class="card"><div class="muted">Nền tảng</div><b>Xe ADAS</b></div>
+    <div class="card"><div class="muted">Sensor · tính năng</div><b>Camera trước · phát hiện vật thể</b></div>
+    <div class="card"><div class="muted">Dữ liệu · model</div><b>BDD100K · YOLOv8n (COCO)</b></div>
+  </div>
+  <div class="foot"><span>Nguyễn Sơn Giang · Vũ Thương Tín</span><span>1</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="kicker">Problem</div>
+  <h2>Lỗi camera không báo lỗi</h2>
+  <div class="grid2">
+    <div>
+      <p>Xe chạy nhanh → <b>nhòe</b>. Thiếu sáng, camera tăng gain → <b>nhiễu</b>, <b>tối</b>. Camera vẫn gửi frame,
+        detector vẫn trả box — hệ thống <b>không tự biết</b> frame nào đáng tin.</p>
+      <p style="margin-top:18px"><b>Claim</b> (giả thuyết để thử):</p>
+      <p class="card">Mức lỗi tăng → chỉ số sức khỏe ảnh đổi theo và <b>mAP@0.5 giảm</b>.
+        Câu hỏi: chỉ số nào <i>báo trước</i> được mAP giảm?</p>
+    </div>
+    <div>
+      <p class="muted">Đo hai lớp, cùng 200 ảnh, cùng cách tính:</p>
+      <ul>
+        <li><b>Sức khỏe ảnh</b> (không cần nhãn): blur score = var(Laplacian), saturation ratio, entropy</li>
+        <li><b>Thuật toán</b> (có nhãn GT): mAP@0.5 và <b>RCE</b> = (mAP<sub>sạch</sub> − mAP<sub>lỗi</sub>) / mAP<sub>sạch</sub></li>
+        <li><b>Độ tự tin detector</b>: uncertainty = 1 − max confidence</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Problem</span><span>2</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="kicker">Method</div>
+  <h2>Nguồn: S5 — Dong et al., CVPR 2023</h2>
+  <div class="grid2">
+    <div>
+      <p><span class="tag t-src">Nguồn</span><i>Benchmarking Robustness of 3D Object Detection to Common Corruptions in Autonomous Driving</i></p>
+      <ul>
+        <li>Input: LiDAR + camera (KITTI-C, nuScenes-C, Waymo-C)</li>
+        <li>27 loại lỗi × 5 mức severity, 24 detector 3D</li>
+        <li>Metric: AP và <b>RCE</b></li>
+        <li>Kết luận: detector chỉ dùng camera rất dễ hỏng trước lỗi ảnh; fusion bền hơn</li>
+      </ul>
+      <p class="muted" style="margin-top:12px">repo <code>thu-ml/3D_Corruptions_AD</code> @ <code>48c23f7</code></p>
+    </div>
+    <div>
+      <p><span class="tag t-do">Nhóm làm</span>dùng <b>đúng định nghĩa severity 1/3/5</b> của 2 lỗi camera:</p>
+      <ul>
+        <li><b>Zoom blur</b> trước-sau (xe lao về trước): phóng to tới 1,02 / 1,06 / 1,10</li>
+        <li><b>Nhiễu Gauss</b> (ImageNet-C): σ = 20,4 / 45,9 / 96,9 mức xám</li>
+        <li>Tự thêm: <b>thiếu sáng</b> ×0,5 / ×0,25 / ×0,1 (S5 không có)</li>
+      </ul>
+      <p class="card" style="margin-top:12px">Code gốc cần imgaug + mmdet3d → viết lại bằng OpenCV.
+        So với logic gốc: <b>lệch tối đa 1 mức xám</b>.</p>
+      <p class="muted">Không chạy detector 3D / KITTI → số của nhóm <b>không so trực tiếp</b> với số của paper.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Method</span><span>3</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="kicker">Benchmark</div>
+  <h2>Một ảnh, mười điều kiện</h2>
+  <img src="results/main/examples.jpg" alt="Cùng một ảnh BDD100K qua baseline, ba mức zoom blur, ba mức nhiễu và ba mức tối" style="max-height:62%;object-fit:contain;align-self:center">
+  <p class="muted" style="margin-top:10px">200 ảnh BDD100K ban ngày, trời quang (seed 0, 3.026 box GT, 7 lớp) · mỗi điều kiện đổi <b>một</b> yếu tố ·
+    đối chiếu thêm 200 ảnh đêm thật · YOLOv8n không huấn luyện lại</p>
+  <div class="foot"><span>Benchmark</span><span>4</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="kicker">Benchmark · kết quả <span class="tag t-do">Đo</span></div>
+  <h2>mAP giảm đều theo mức lỗi</h2>
+  <div class="grid2">
+    <div>
+      <svg viewBox="0 0 520 300" width="100%" role="img" aria-label="RCE theo mức lỗi cho ba họ lỗi">
+        <g stroke="var(--line)">
+          <line x1="50" y1="20" x2="50" y2="250"/><line x1="50" y1="250" x2="500" y2="250"/>
+          <line x1="50" y1="135" x2="500" y2="135" stroke-dasharray="3 4"/>
+          <line x1="50" y1="20" x2="500" y2="20" stroke-dasharray="3 4"/>
+        </g>
+        <text x="40" y="254" text-anchor="end">0</text><text x="40" y="139" text-anchor="end">0,5</text><text x="40" y="24" text-anchor="end">1</text>
+        <text x="70" y="272" text-anchor="middle">sạch</text><text x="210" y="272" text-anchor="middle">mức 1</text>
+        <text x="350" y="272" text-anchor="middle">mức 2</text><text x="480" y="272" text-anchor="middle">mức 3</text>
+        <text x="275" y="294" text-anchor="middle">mức lỗi tăng →</text>
+        <text x="14" y="140" transform="rotate(-90 14 140)" text-anchor="middle">RCE (mAP mất đi)</text>
+        <!-- RCE: blur 0,.199,.629,.737 · noise 0,.168,.419,.869 · dark 0,.053,.120,.351 ; y = 250 - 230*RCE -->
+        <polyline fill="none" stroke="var(--blur)" stroke-width="3" points="70,250 210,204.2 350,105.3 480,80.5"/>
+        <polyline fill="none" stroke="var(--noise)" stroke-width="3" points="70,250 210,211.4 350,153.6 480,50.1"/>
+        <polyline fill="none" stroke="var(--dark)" stroke-width="3" points="70,250 210,237.8 350,222.4 480,169.3"/>
+        <g font-weight="700">
+          <text x="488" y="84" style="fill:var(--blur)">0,74</text>
+          <text x="488" y="50" style="fill:var(--noise)">0,87</text>
+          <text x="488" y="173" style="fill:var(--dark)">0,35</text>
+        </g>
+      </svg>
+      <div class="legend"><span><i style="background:var(--blur)"></i>zoom blur (S5)</span><span><i style="background:var(--noise)"></i>nhiễu (S5)</span><span><i style="background:var(--dark)"></i>tối (tự thêm)</span></div>
+    </div>
+    <div>
+      <table>
+        <tr><th>Điều kiện</th><th>mAP50</th><th>RCE</th></tr>
+        <tr><td>sạch (baseline)</td><td>0,295</td><td>0</td></tr>
+        <tr><td>zoom blur s1 / s3 / s5</td><td>0,236 / 0,110 / 0,078</td><td>0,20 / 0,63 / 0,74</td></tr>
+        <tr><td>nhiễu s1 / s3 / s5</td><td>0,246 / 0,171 / <span class="hl">0,039</span></td><td>0,17 / 0,42 / <span class="hl">0,87</span></td></tr>
+        <tr><td>tối ×0,5 / ×0,25 / ×0,1</td><td>0,280 / 0,260 / 0,192</td><td>0,05 / 0,12 / 0,35</td></tr>
+        <tr><td>đêm thật (ảnh khác)</td><td>0,146</td><td>—</td></tr>
+      </table>
+      <p class="muted" style="margin-top:12px">mAP tuyệt đối thấp vì YOLOv8n COCO chạy thẳng trên BDD100K → so sánh <b>tương đối</b> (RCE) trên cùng baseline.</p>
+      <p>Cùng chiều với paper <span class="tag t-src">Nguồn</span>: camera-only dễ hỏng — nhưng khác detector/dataset, không đặt hai con số cạnh nhau.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Benchmark</span><span>5</span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="kicker">Failure case <span class="tag t-do">Đo</span></div>
+  <h2>Nhiễu khiến ảnh hỏng trông "nét hơn"</h2>
+  <div class="grid3">
+    <div class="card"><div class="muted">mAP50 · nhiễu severity 5</div><div class="big">0,295 → <span class="hl">0,039</span></div><div class="muted">RCE 0,87 · 31,5 % ảnh mất hết box</div></div>
+    <div class="card"><div class="muted">Blur score (cao = nét)</div><div class="big"><span class="hl">×146</span></div><div class="muted">327 → 47.793</div></div>
+    <div class="card"><div class="muted">Cổng blur + saturation bắt được</div><div class="big"><span class="hl">1,5–3,5 %</span></div><div class="muted">ảnh nhiễu ở cả 3 mức</div></div>
+  </div>
+  <img src="results/main/plot_noise.png" alt="Theo mức nhiễu: blur score và uncertainty tăng, mAP giảm" style="margin-top:14px;max-height:34%;object-fit:contain;align-self:center">
+  <p style="margin-top:10px"><b>Vì sao:</b> var(Laplacian) đo năng lượng tần số cao — và nhiễu <i>chính là</i> tần số cao. Entropy cũng tăng (7,49 → 7,90).
+    <span class="tag t-hyp">Giả thuyết</span>health check kiểu này sẽ <i>tăng</i> độ tin camera đúng lúc detector gần như mù.</p>
+  <div class="foot"><span>Failure case</span><span>6</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="kicker">Cải tiến · thử nhanh <span class="tag t-do">Đo</span></div>
+  <h2>Thêm một chỉ số: ước lượng nhiễu</h2>
+  <div class="grid2">
+    <div>
+      <p><b>noise_est</b> — Immerkær (1996): lọc bằng mặt nạ Laplacian bậc hai, triệt tiêu cạnh, chỉ giữ nhiễu.</p>
+      <p class="muted">Trung vị: sạch 0,75 → nhiễu 13,7 / 27,9 / 48,8; blur và tối đều <i>giảm</i> (0,30 / 0,15) → tách được nhiễu khỏi hai lỗi kia.</p>
+      <p style="margin-top:14px"><b>Cổng A</b>: blur thấp <i>hoặc</i> saturation cao (ngưỡng phân vị 5 % / 95 % ảnh sạch)<br>
+         <b>Cổng B</b>: cổng A <i>hoặc</i> noise_est cao</p>
+      <p class="muted">Chi phí: ~16–20 ms/frame, 1 luồng CPU, 1280×720</p>
+    </div>
+    <div>
+      <table>
+        <tr><th>Tỉ lệ gắn cờ</th><th>Cổng A</th><th>Cổng B</th></tr>
+        <tr><td>nhiễu s1 / s3 / s5</td><td>2,5 / 3,5 / 1,5 %</td><td class="hl">100 / 100 / 100 %</td></tr>
+        <tr><td>zoom blur s1 / s3 / s5</td><td>72,5 / 99,5 / 100 %</td><td>như A</td></tr>
+        <tr><td>đêm thật</td><td>83,5 %</td><td>83,5 %</td></tr>
+        <tr><td><b>báo nhầm ảnh sạch</b></td><td>9,5 %</td><td class="hl">14,5 %</td></tr>
+      </table>
+      <p class="muted" style="margin-top:10px">Ngưỡng đặt trên chính 200 ảnh sạch (in-sample) → tỉ lệ báo nhầm là lạc quan.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Engineering decision</span><span>7</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="kicker">Engineering decision · trade-off</div>
+  <h2>Đưa vào xe thật thì làm gì</h2>
+  <div class="grid2">
+    <div>
+      <ol>
+        <li><b>Camera health gate</b> mỗi frame: blur + exposure + noise. Gắn cờ → hạ trọng số camera, dựa nhiều hơn vào radar/LiDAR.</li>
+        <li><b>Không dùng ngưỡng blur tuyệt đối</b>: var(Laplacian) tỉ lệ với bình phương độ tương phản — trộn "nhòe" với "tối". Chuẩn hoá theo độ sáng, ngưỡng <b>theo từng camera</b>.</li>
+        <li><b>Data loop</b>: chọn ảnh gán nhãn theo uncertainty sẽ ưu tiên ảnh hỏng — ở mức nặng nhất, ảnh lỗi chiếm <b>35–54 %</b> top-200 (25 % nếu không liên quan). Tách ảnh bị gắn cờ thành nhóm "sensor fault" có hạn mức.</li>
+      </ol>
+    </div>
+    <div>
+      <div class="card"><b class="t-do">Nên</b> — khi camera là nguồn chính cho tính năng an toàn (AEB, giữ làn) và có sensor dự phòng.</div>
+      <div class="card" style="margin-top:12px"><b class="hl">Không nên</b> gắn cứng ngưỡng — báo nhầm 9,5 → 14,5 %; tối ×0,5 bị gắn cờ 64,5 % dù mAP chỉ giảm 5 %. Xe chỉ có camera: mỗi báo nhầm là một lần tắt tính năng.</div>
+      <div class="card" style="margin-top:12px"><b>Vòng sau đo:</b> AUROC của cổng so với frame detector hỏng thật · dữ liệu đêm/mưa thật có nhãn · tổ hợp tối + nhiễu · latency trên phần cứng nhúng.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Engineering decision</span><span>8</span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="kicker">Tái hiện</div>
+  <h2>Kiểm tra lại được</h2>
+  <div class="grid2">
+    <div>
+      <ul>
+        <li><code>benchmark.ipynb</code> — notebook đã lưu output</li>
+        <li><code>python src/benchmark.py --n 200</code> (seed 0)</li>
+        <li><code>python src/check_s5_port.py</code> — so với code gốc S5</li>
+        <li><code>results/main/</code> — summary, per_image, plot, run_info</li>
+      </ul>
+      <p class="muted" style="margin-top:14px">Python 3.10 · ultralytics 8.4.171 · opencv 4.10 · numpy 1.26 · BDD100K <code>dgural/bdd100k</code></p>
+    </div>
+    <div>
+      <p><b>Hạn chế</b></p>
+      <ul class="muted">
+        <li>Lỗi chủ yếu mô phỏng; 200 ảnh, một seed</li>
+        <li>Ngưỡng cổng đặt in-sample</li>
+        <li>Detector không huấn luyện lại trên BDD100K</li>
+        <li>Ảnh đêm BDD đã nén JPEG mạnh → nhiễu thật thấp, khác camera RAW</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Nhóm GTAA</span><span>9</span></div>
+</section>
+
+</div>
+<div class="nav"><button id="prev" aria-label="Slide trước">←</button><button id="next" aria-label="Slide sau">→</button></div>
+<script>
+  const slides = [...document.querySelectorAll(".slide")];
+  let i = 0;
+  const show = n => { slides[i].classList.remove("active"); i = Math.max(0, Math.min(slides.length - 1, n)); slides[i].classList.add("active"); };
+  document.getElementById("prev").onclick = () => show(i - 1);
+  document.getElementById("next").onclick = () => show(i + 1);
+  document.addEventListener("keydown", e => {
+    if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+  });
+</script>
+</body>
+</html>
