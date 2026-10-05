@@ -1,0 +1,13 @@
+family,condition,share_of_topk
+motion_blur,clean,0.135
+motion_blur,motion_blur_zoom0.02,0.145
+motion_blur,motion_blur_zoom0.06,0.275
+motion_blur,motion_blur_zoom0.1,0.445
+noise,clean,0.095
+noise,noise_sigma20.4,0.125
+noise,noise_sigma45.9,0.245
+noise,noise_sigma96.9,0.535
+dark,clean,0.215
+dark,dark_gain0.5,0.195
+dark,dark_gain0.25,0.240
+dark,dark_gain0.1,0.350

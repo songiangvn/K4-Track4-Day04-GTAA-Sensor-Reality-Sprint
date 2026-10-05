@@ -1,0 +1,9 @@
+b1c66a42-6f7d68ca.jpg  severity 1 (zoom 0.02): mean|diff| = 0.005, max|diff| = 1 mức xám
+b1c66a42-6f7d68ca.jpg  severity 3 (zoom 0.06): mean|diff| = 0.011, max|diff| = 1 mức xám
+b1c66a42-6f7d68ca.jpg  severity 5 (zoom 0.10): mean|diff| = 0.014, max|diff| = 1 mức xám
+b1c81faa-3df17267.jpg  severity 1 (zoom 0.02): mean|diff| = 0.001, max|diff| = 1 mức xám
+b1c81faa-3df17267.jpg  severity 3 (zoom 0.06): mean|diff| = 0.003, max|diff| = 1 mức xám
+b1c81faa-3df17267.jpg  severity 5 (zoom 0.10): mean|diff| = 0.005, max|diff| = 1 mức xám
+b1c81faa-c80764c5.jpg  severity 1 (zoom 0.02): mean|diff| = 0.002, max|diff| = 1 mức xám
+b1c81faa-c80764c5.jpg  severity 3 (zoom 0.06): mean|diff| = 0.004, max|diff| = 1 mức xám
+b1c81faa-c80764c5.jpg  severity 5 (zoom 0.10): mean|diff| = 0.006, max|diff| = 1 mức xám

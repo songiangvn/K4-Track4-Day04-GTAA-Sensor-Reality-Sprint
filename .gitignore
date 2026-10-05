@@ -1,0 +1,6 @@
+work/
+.ultralytics/
+__pycache__/
+results/smoke/
+data/
+*.pt

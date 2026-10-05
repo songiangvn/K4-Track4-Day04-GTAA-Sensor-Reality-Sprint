@@ -1,0 +1,69 @@
+{
+  "command": "run_benchmark(n=200, seed=0, families=['motion_blur', 'noise', 'dark'], night=True, tag='main')",
+  "seed": 0,
+  "n_per_condition": 200,
+  "day_gt_boxes": 3026,
+  "night_gt_boxes": 2739,
+  "jpeg_quality": 95,
+  "families": {
+    "motion_blur": [
+      "zoom",
+      [
+        [
+          0.02,
+          1
+        ],
+        [
+          0.06,
+          3
+        ],
+        [
+          0.1,
+          5
+        ]
+      ]
+    ],
+    "noise": [
+      "sigma",
+      [
+        [
+          20.4,
+          1
+        ],
+        [
+          45.9,
+          3
+        ],
+        [
+          96.9,
+          5
+        ]
+      ]
+    ],
+    "dark": [
+      "gain",
+      [
+        [
+          0.5,
+          null
+        ],
+        [
+          0.25,
+          null
+        ],
+        [
+          0.1,
+          null
+        ]
+      ]
+    ]
+  },
+  "weights": "yolov8n.pt",
+  "versions": {
+    "python": "3.10.19",
+    "ultralytics": "8.4.171",
+    "opencv": "4.10.0",
+    "numpy": "1.26.4"
+  },
+  "seconds": 125.8
+}
