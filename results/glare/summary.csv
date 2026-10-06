@@ -1,0 +1,5 @@
+condition,family,level,rank,s5_severity,n_images,blur_score,saturation_ratio,entropy_bits,noise_est,mean_max_conf,frac_no_box,boxes_conf_ge_0.25,uncertainty,mAP50,mAP50_95,RCE
+clean,none,0.0000,0,,200,327.0917,0.0094,7.4869,0.7463,0.7924,0.0000,7.7050,0.2076,0.2953,0.1730,0.0000
+overexpose_gain1.5,overexpose,1.5000,1,,200,596.5371,0.1416,7.2806,1.0196,0.7860,0.0000,7.7250,0.2140,0.3020,0.1643,-0.0228
+overexpose_gain2.5,overexpose,2.5000,2,,200,716.8585,0.4276,5.7297,1.1134,0.7609,0.0050,7.1800,0.2379,0.2780,0.1485,0.0585
+overexpose_gain4,overexpose,4.0000,3,,200,554.2057,0.6348,4.1702,0.9192,0.6756,0.0050,5.3900,0.3228,0.1962,0.0978,0.3355

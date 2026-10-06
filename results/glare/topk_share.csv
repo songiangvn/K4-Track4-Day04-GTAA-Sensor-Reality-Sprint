@@ -1,0 +1,5 @@
+family,condition,share_of_topk
+overexpose,clean,0.165
+overexpose,overexpose_gain1.5,0.180
+overexpose,overexpose_gain2.5,0.235
+overexpose,overexpose_gain4,0.420

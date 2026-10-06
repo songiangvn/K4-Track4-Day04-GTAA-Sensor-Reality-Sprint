@@ -1,0 +1,35 @@
+{
+  "command": "src/benchmark.py --n 200 --families overexpose --no-night --tag glare",
+  "seed": 0,
+  "n_per_condition": 200,
+  "day_gt_boxes": 3026,
+  "night_gt_boxes": 0,
+  "jpeg_quality": 95,
+  "families": {
+    "overexpose": [
+      "gain",
+      [
+        [
+          1.5,
+          null
+        ],
+        [
+          2.5,
+          null
+        ],
+        [
+          4.0,
+          null
+        ]
+      ]
+    ]
+  },
+  "weights": "yolov8n.pt",
+  "versions": {
+    "python": "3.10.19",
+    "ultralytics": "8.4.171",
+    "opencv": "4.10.0",
+    "numpy": "1.26.4"
+  },
+  "seconds": 98.8
+}
